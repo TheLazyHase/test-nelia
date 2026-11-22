@@ -1,0 +1,49 @@
+flowchart TD
+    classDef external fill:lightgreen
+    classDef undetermined fill:lightblue
+    classDef internal fill:lightblue
+    classDef operator fill:#FAC898
+
+    subgraph Tables
+        Samples[Samples]
+    end
+
+    subgraph ITables [Append-only tables]
+        SampleEvents[Sample Events]
+    end
+
+    subgraph API
+        LabSSO[Lab SSO]
+        CollectionPointSSO[Collection point SSO]
+        CoursierSSO[Coursier SSO]
+
+        CollectionAPI[collection API]
+        CoursierAPI[coursier API]
+        LabAPI[lab API]
+        Backoffice[Back-office]
+    end
+
+    subgraph Actors
+        sampleCollectionPoint[collection point]:::operator
+        lab[Central Laboratory]:::operator
+        coursier[Internal Coursier]:::operator
+    end
+
+    sampleCollectionPoint --> coursier --> lab
+    sampleCollectionPoint --> CollectionAPI
+    coursier --> CoursierAPI
+    lab --> LabAPI
+
+    CollectionAPI --> CollectionPointSSO --> CollectionAPI
+    CollectionAPI --> Samples
+    CollectionAPI --> SampleEvents
+
+    CoursierAPI --> CoursierSSO --> CoursierAPI
+    CoursierAPI --> SampleEvents
+
+    LabAPI --> LabSSO --> LabAPI
+    LabAPI --> Samples
+    LabAPI --> SampleEvents
+
+    Backoffice --> Samples
+    Backoffice --> SampleEvents
