@@ -1,0 +1,35 @@
+{
+	"gated_url": "http://localhost:4500",
+	"header_rules": [
+		{
+			"key": "Myheader",
+			"match": ".*",
+			"name": "Test rule disabling Myheader"
+		}
+	],
+	"parameter_rules": [
+		{
+			"key": "user",
+			"match": ".*",
+			"name": "Test rule disabling URL parameter user"
+		}
+	],
+	"segment_rules": [
+		{
+			"key": "ODS",
+			"name": "Test rule disabling messages with an ODS segment"
+		}
+	],
+	"masking_rules": [
+		{
+			"key": "OBX",
+			"fields": [7, 11],
+			"name": "Test rule disabling some observation fields on OBX"
+		},
+		{
+			"key": "ODT",
+			"everything": true,
+			"name": "Test rule disabling all observation fields on ODT"
+		}
+	]
+}
